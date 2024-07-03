@@ -5,7 +5,7 @@ import uuid from 'uuid';
 
 var fakeTodos = [{
     id: 'ae06181d-92c2-4fed-a29d-fb53a6301eb9',
-    text: 'Learn about React Ecosystems',
+    text: 'Buy a toaster',
     isCompleted: false,
     createdAt: new Date(),
 }, {
