@@ -1,7 +1,9 @@
 import React from "react";
 import styled from "styled-components";
 
-const TodoItemContainer = styled.div`
+const TodoItemContainer = styled.div.withConfig({
+    shouldForwardProp: (prop) => prop !== 'createdAt',
+})`
   background: #fff;
   border-radius: 8px;
   margin-top: 8px;
@@ -13,7 +15,9 @@ const TodoItemContainer = styled.div`
 export const getBorderStyleForDate = (startingDate, currentDate) =>
   startingDate > new Date(currentDate - 8640000 * 5) ? "none" : "2px solid red";
 
-const ToDoItemContainerWithWarning = styled(TodoItemContainer)`
+const ToDoItemContainerWithWarning = styled(TodoItemContainer).withConfig({
+    shouldForwardProp: (prop) => prop !== 'createdAt',
+})`
   border-bottom: ${(props) =>
     getBorderStyleForDate(new Date(props.createdAt), Date.now())};
 `;
