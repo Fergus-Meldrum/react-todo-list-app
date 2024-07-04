@@ -3,7 +3,7 @@
 A basic Todo list web app built using React, Babel, Node, and Webpack. This app allows you to create, delete, and mark todo list items as complete. Instead of using a database, it stores and modifies data in an array of objects, which is managed through a simple server with defined endpoints.
 ## Skills Demonstrated
 
-- **Manual app set up**
+- **Manual App Set Up**
     - `index.html`: Entry point for client.
     - ES6 Support: Enables modern JavaScript and JSX using Babel.
     - Webpack: For building, styling, and serving the app.
