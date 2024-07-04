@@ -32,6 +32,8 @@ After cloning the project from git:
 ```sh
 cd react-todo-list-app
 
+npm install
+
 npm run dev
 ```
 
@@ -39,6 +41,8 @@ npm run dev
 
 ```sh
 cd react-todolist-server
+
+npm install
 
 npm run start
 ```
