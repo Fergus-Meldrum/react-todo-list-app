@@ -17,7 +17,8 @@ const NewTodoInput = styled.input`
   border: none;
   border-bottom: 2px solid #ddd;
   border-radius: 8px;
-  width: 70%;
+  margin-bottom: 16px;
+  width: 90%;
   outline: none;
 `;
 
@@ -34,24 +35,47 @@ const NewTodoButton = styled.button`
 `;
 
 const NewTodoForm = ({ todos, onCreatePressed }) => {
-  const [inputValue, setInputValue] = useState("");
+  const [newTodo, setInputValues] = useState({
+    todoText: "",
+    todoDate: "",
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setInputValues((prevValues) => ({
+      ...prevValues,
+      [name]: value,
+    }));
+  };
 
   return (
     <FormConatiner>
       <NewTodoInput
         type="text"
+        name="todoText"
         placeholder="Type your new todo here"
-        value={inputValue}
-        onChange={(e) => setInputValue(e.target.value)}
+        value={newTodo.todoText}
+        onChange={handleChange}
+      ></NewTodoInput>
+      <label htmlFor="dateInput">Select a date:</label>
+      <NewTodoInput
+        id="dateInput"
+        type="date"
+        name="todoDate"
+        value={newTodo.todoDate}
+        onChange={handleChange}
       ></NewTodoInput>
       <NewTodoButton
         onClick={() => {
           const isDuplicateText = todos.some(
-            (todo) => todo.text === inputValue
+            (todo) => todo.text === newTodo.text
           );
           if (!isDuplicateText) {
-            onCreatePressed(inputValue);
-            setInputValue("");
+            onCreatePressed(newTodo);
+            setInputValues({
+              todoText: "",
+              todoDate: "",
+            });
           }
         }}
       >
@@ -66,7 +90,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  onCreatePressed: (text) => dispatch(addTodoRequest(text)),
+  onCreatePressed: (newTodo) => dispatch(addTodoRequest(newTodo)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(NewTodoForm);

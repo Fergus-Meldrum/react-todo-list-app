@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 
 const TodoItemContainer = styled.div.withConfig({
-    shouldForwardProp: (prop) => prop !== 'createdAt',
+  shouldForwardProp: (prop) => prop !== "dueDate",
 })`
   background: #fff;
   border-radius: 8px;
@@ -16,10 +16,10 @@ export const getBorderStyleForDate = (startingDate, currentDate) =>
   startingDate > new Date(currentDate - 8640000 * 5) ? "none" : "2px solid red";
 
 const ToDoItemContainerWithWarning = styled(TodoItemContainer).withConfig({
-    shouldForwardProp: (prop) => prop !== 'createdAt',
+  shouldForwardProp: (prop) => prop !== "dueDate",
 })`
   border-bottom: ${(props) =>
-    getBorderStyleForDate(new Date(props.createdAt), Date.now())};
+    getBorderStyleForDate(new Date(props.dueDate), Date.now())};
 `;
 
 const ButtonsContainer = styled.div`
@@ -53,11 +53,11 @@ const ToDoListItem = ({ todo, onRemovePressed, markAsComplete }) => {
     : ToDoItemContainerWithWarning;
 
   return (
-    <Container createdAt={todo.createdAt}>
+    <Container dueDate={todo.dueDate}>
       <h3>{todo.text}</h3>
       <p>
-        Created at:&nbsp;
-        {new Date(todo.createdAt).toLocaleDateString()}
+        Due:&nbsp;
+        {new Date(todo.dueDate).toLocaleDateString()}
       </p>
       <ButtonsContainer>
         {todo.isCompleted ? null : (

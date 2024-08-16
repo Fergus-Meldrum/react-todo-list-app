@@ -20,9 +20,12 @@ export const loadTodos = () => async (dispatch, getState) => {
   }
 };
 
-export const addTodoRequest = (text) => async (dispatch) => {
+export const addTodoRequest = (newTodo) => async (dispatch) => {
   try {
-    const body = JSON.stringify({ text });
+    const body = JSON.stringify({
+      text: newTodo.todoText,
+      date: newTodo.todoDate,
+    });
     const response = await fetch("http://localhost:8080/todos", {
       headers: {
         "Content-Type": "application/json",
@@ -30,7 +33,14 @@ export const addTodoRequest = (text) => async (dispatch) => {
       method: "post",
       body,
     });
+
+    if (!response.created) {
+      const { message } = await response.json();
+      throw new Error(message);
+    }
+
     const todo = await response.json();
+
     dispatch(createTodo(todo));
   } catch (e) {
     dispatch(displayAlert(e));
